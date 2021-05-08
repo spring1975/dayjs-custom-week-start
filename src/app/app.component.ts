@@ -14,7 +14,7 @@ export class AppComponent {
   readonly weekdayAsArray = Object.values(WeekDay).slice(0, 7)
   today = dayjs().toDate();
 
-  constructor(readonly wds: WeekdayService) {console.log(this.weekdayAsArray)}
+  constructor(readonly wds: WeekdayService) {}
 
   weekDays$ = this.wds.nextWeekStartDate.pipe(
     map((s) => this.wds.weekDatesOf(dayjs(s)))
