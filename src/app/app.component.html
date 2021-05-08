@@ -1,0 +1,14 @@
+<p><em>{{ today | date:'fullDate' }}</em> is a great day to do Angular</p>
+<p>
+  Let's start the next week on
+  <em>{{ (wds.nextWeekStartDate | async) | date: 'fullDate' }}</em>
+</p>
+
+<button style="margin-right: 1rem;" *ngFor="let day of weekdayAsArray; index as i" (click)="changeConfig(i)">change to {{day}}</button>
+
+
+<ul>
+  <li *ngFor="let wd of weekDays$ | async; index as i">
+    {{ wd | date : 'fullDate' }}
+  </li>
+</ul>
