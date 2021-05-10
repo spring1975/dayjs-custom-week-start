@@ -17,7 +17,7 @@ export class AppComponent {
   constructor(readonly wds: WeekdayService) {}
 
   weekDays$ = this.wds.nextWeekStartDate.pipe(
-    map((s) => this.wds.weekDatesOf(dayjs(s)))
+    map((s) => this.wds.weekDatesStartingOf(dayjs(s)))
   );
 
   changeConfig(dayOfWeek: number) {

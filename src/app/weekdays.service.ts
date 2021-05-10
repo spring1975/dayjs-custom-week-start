@@ -9,7 +9,7 @@ import { WeekDay } from '@angular/common';
   providedIn: 'root'
 })
 export class WeekdayService {
-  startingWeekday = new BehaviorSubject<number>(0);
+  private startingWeekday = new BehaviorSubject<number>(0);
 
   nextWeekStartDate = this.startingWeekday.asObservable().pipe(
     tap(n => {
@@ -23,11 +23,15 @@ export class WeekdayService {
     )
   );
 
+  constructor() {
+    dayjs.extend(updateLocale);
+  }
+
   setWeekStartDate(weekday: number) {
     this.startingWeekday.next(weekday);
   }
 
-  weekDaysStartingOn(firstOfWeek: WeekDay): WeekDay[] {
+  weekdaysStartingOn(firstOfWeek: WeekDay): WeekDay[] {
     const arrWeekdays = Object.values(WeekDay) as WeekDay[];
     return [
       ...arrWeekdays.slice(firstOfWeek, 7),
@@ -35,14 +39,10 @@ export class WeekdayService {
     ];
   }
 
-  weekDatesOf(djs: dayjs.Dayjs): Date[] {
+  weekDatesStartingOf(djs: dayjs.Dayjs): Date[] {
     const startOfWeek = djs.startOf('week')
     return [
       ...Array.from(Array(7).keys()).map(d => startOfWeek.add(d, 'day').toDate())
     ];
-  }
-
-  constructor() {
-    dayjs.extend(updateLocale);
   }
 }
